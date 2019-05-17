@@ -311,8 +311,7 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 ### 7. Setup SAP ASE cluster
 #### On Client machine
 1. On WebManager Condiguration Mode, move group to Secondary Server
-1. Right click group under "Groups" in the left tree and select Add Resource
-1. Add exec resource
+1. Add exec resource to the group
 	- Info
 		- Type: EXEC resuorce
 		- Name: exec_sapase
@@ -333,6 +332,19 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 				- Log Output Path: /opt/nec/clusterpro/log/exec_sapase.log
 				- Rotate Log: Check
 				- Rotate Size: 1000000 byte
+1. Add custome monitor resource to the group
+	- Info
+		- Type: Custom monitor
+		- Name: genw_sapase
+	- Monitor(common)
+		- Retry Count: 1
+		- Monitor Timing: Active
+		- Target Resource: exec_sapase
+	- Monitor(special)
+		- Script: Refer [Sample Scripts](https://github.com/EXPRESSCLUSTER/SAP-ASE_Sybase/blob/master/SAP-ASE_cluster.md#monitor-script)
+		- Log Output Path: /opt/nec/cluster/log/genw_sapase.log
+		- Rotate Log: Check
+		- Rotation Size: 1000000 byte
 1. Apply the Configuration
 1. On Operation Mode, start exec_sapase
 
@@ -355,7 +367,7 @@ su - sap -c "source /opt/sap/SYBASE.sh; startserver -f $SYBASE/$SYBASE_ASE/insta
 #Check dataserver is started
 sleep 10
 result=`su - sap -c "source /opt/sap/SYBASE.sh; showserver"`
-echo $result | grep dataserver
+echo $result | grep "$SYBASE/$SYBASE_ASE/bin/dataserver"
 if [ $? -eq 1 ]
 then
     echo "ERROR: SAP ASE failed to start."
@@ -395,4 +407,26 @@ echo "Finish"
 exit 0
 ```
 
-## Note
+#### Monitor Script
+```bat
+#! /bin/sh
+#***********************************************
+#*                   genw.sh                   *
+#***********************************************
+
+ulimit -s unlimited
+
+echo "Start"
+result=`su - sap -c "source /opt/sap/SYBASE.sh; showserver"`
+echo $result | grep "$SYBASE/$SYBASE_ASE/bin/dataserver"
+
+if [ $? -eq 1 ]
+then
+    echo "ERROR: SAP ASE process is down."
+    echo "Finish"
+    exit 1
+fi
+echo "SAP ASE process is alive."
+echo "Finish"
+exit 0
+```
