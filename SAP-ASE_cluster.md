@@ -43,7 +43,7 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 [Gateway]
  :
 ```
-### Requirement
+### Requirements
 - All Primary Server, Secondary Server and Client machine sould be reachable with IP address.
 - Ports which EXPRESSCLUSTER requires should be opend
 - 2 partitions are required for Mirror Disk Data Partition and Cluster Partition.
@@ -53,6 +53,9 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 - IE and Java version should meet WebManager requirement.
 
 ### Sample configuration
+\* If Primary/Secondary Servers spec is not ehough, SAP ASE installation will fail.
+	Please refer SAP ASE Installation Guide and check SAP ASE Requirements.
+
 - Primary/Secondary Server
 	- OS: CentOS 7.4
 	- ECX: 3.3.5-1
@@ -110,7 +113,7 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 	```bat
 	# /sbin/sysctl -w kernel.shmmax=268435456
 	```  
-	\* This size depends on SAP ASE page size. Please refer "SAP ASE installation" in Reference.
+	\* This size depends on SAP ASE page size. Please refer SAP ASE Installation Guide in Reference and check about it.
 	If share memory size is not enough, installation will be failed.
 1. Edit hosts file
 	```bat
@@ -249,7 +252,7 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 #### On Client machine
 1. On WebManager Operation Mode, move the group to Secondary Server
 #### On Seconday Servers
-1. Follow steps ★ on Primary Server
+1. Do the same as step 1-7 on Primary Server
 1. Create test table
 	```bat
 	$ isql -Usa -P<sa password> -Sasecluster
@@ -320,8 +323,8 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 	- Dependency: default
 	- Recovery Operation: default
 	- Details
-		- Start Script: ★
-		- Stop Script: ★
+		- Start Script: Refer [Sample Scripts](https://github.com/EXPRESSCLUSTER/SAP-ASE_Sybase/blob/master/SAP-ASE_cluster.md#start-script)
+		- Stop Script: Refer [Sample Scripts](https://github.com/EXPRESSCLUSTER/SAP-ASE_Sybase/blob/master/SAP-ASE_cluster.md#stop-script)
 		- Tuning
 			- Parameter
 				- Start Script
@@ -337,7 +340,7 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 1. Apply the Configuration
 1. On Operation Mode, start exec_sapase
 
-### 8. Scripts
+### 8. Sample Scripts
 #### Start Script
 ```bat
 #! /bin/sh
