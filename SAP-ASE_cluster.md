@@ -4,14 +4,10 @@
 This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 
 ## Reference
-- EXPRESSCLUSTER X for Linux System Requirements  
-	https://www.nec.com/en/global/prod/expresscluster/en/overview/sysrep_lx.html?
-- EXPRESSCLUSTER X installation  
-	https://www.nec.com/en/global/prod/expresscluster/en/support/manuals.html
-- SAP ASE installation  
-	https://help.sap.com/viewer/bcb0c0752eac4d269c85dc694050df13/16.0.2.0/en-US
-- Java  
-  https://www.java.com/en/download/
+- [EXPRESSCLUSTER X for Linux System Requirements](https://www.nec.com/en/global/prod/expresscluster/en/overview/sysrep_lx.html?)
+- [EXPRESSCLUSTER X Installation Guide for Linux](https://www.nec.com/en/global/prod/expresscluster/en/support/manuals.html)
+- [SAP ASE Installation Guide for Linux](https://help.sap.com/viewer/bcb0c0752eac4d269c85dc694050df13/16.0.2.0/en-US)
+- [Java](https://www.java.com/en/download/)
 
 ## Cluster System Configuration
 2 nodes cluster for Linux with Mirror Disk configuration
@@ -53,8 +49,8 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 - IE and Java version should meet WebManager requirement.
 
 ### Sample configuration
-\* If Primary/Secondary Servers spec is not ehough, SAP ASE installation will fail.
-	Please refer SAP ASE Installation Guide and check SAP ASE Requirements.
+\* **If Primary/Secondary Servers spec is not ehough, SAP ASE installation will fail.
+	Check [SAP ASE Installation Guide - Requirements](https://help.sap.com/viewer/bcb0c0752eac4d269c85dc694050df13/16.0.2.0/en-US/a69fe763bc2b1014be29bacb3e1e1f34.html).**
 
 - Primary/Secondary Server
 	- OS: CentOS 7.4
@@ -95,7 +91,7 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 	```bat
 	# groupadd sap
 	# useradd -g sap sap
-	# psswd *****
+	# psswd
 	enter password for sap user
 	```
 1. Create SAP ASE install directory and change their owener
@@ -113,8 +109,8 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 	```bat
 	# /sbin/sysctl -w kernel.shmmax=268435456
 	```  
-	\* This size depends on SAP ASE page size. Please refer SAP ASE Installation Guide in Reference and check about it.
-	If share memory size is not enough, installation will be failed.
+	\* **This size depends on SAP ASE page size and if share memory size is not enough, SAP ASE installation will fail.   
+		Check [SAP ASE Installation Guide - Preparing to Install SAP ASE](https://help.sap.com/viewer/bcb0c0752eac4d269c85dc694050df13/16.0.2.0/en-US/a6a44386bc2b1014bba7d72e4e78fbde.html).**
 1. Edit hosts file
 	```bat
 	# vi /etc/hosts
