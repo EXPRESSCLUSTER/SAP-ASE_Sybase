@@ -91,7 +91,7 @@ This article shows how to setup SAP ASE (known as Sybase ASE) cluster.
 	```bat
 	# groupadd sap
 	# useradd -g sap sap
-	# psswd
+	# passwd sap
 	enter password for sap user
 	```
 1. Create SAP ASE install directory and change their owener
